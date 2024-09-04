@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlnnp1haimue"]
+
+[ext_resource type="PackedScene" uid="uid://cl8hmenex7hf" path="res://scenes/player.tscn" id="1_q55ni"]
+[ext_resource type="PackedScene" uid="uid://nqdep3hj0bbx" path="res://scenes/ground.tscn" id="2_o0vj6"]
+[ext_resource type="PackedScene" uid="uid://d1mggib58noyp" path="res://scenes/platform.tscn" id="3_c82ch"]
+[ext_resource type="PackedScene" uid="uid://bld47fmx7l4wn" path="res://scenes/box.tscn" id="4_1m4qh"]
+
+[node name="world" type="Node2D"]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_q55ni")]
+texture_filter = 1
+position = Vector2(68, -21)
+jump_force = 500
+
+[node name="ground" parent="." instance=ExtResource("2_o0vj6")]
+texture_filter = 1
+scale = Vector2(8.01, 1)
+
+[node name="p1" parent="." instance=ExtResource("3_c82ch")]
+position = Vector2(93, -21)
+
+[node name="p2" parent="." instance=ExtResource("3_c82ch")]
+position = Vector2(176, -37)
+
+[node name="p3" parent="." instance=ExtResource("3_c82ch")]
+position = Vector2(262, -66)
+
+[node name="box" parent="." instance=ExtResource("4_1m4qh")]
+position = Vector2(93, -50)
