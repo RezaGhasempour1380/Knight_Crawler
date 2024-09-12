@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjahgpynme3ci"]
+
+[ext_resource type="TileSet" uid="uid://d0w65jqxkxve7" path="res://resources/default_tilemap.tres" id="1_at3a4"]
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource("1_at3a4")
+format = 2
+layer_0/name = "ground"
+layer_1/name = "grass"
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "vegetation"
+layer_2/z_index = 2
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "structure"
+layer_3/z_index = 3
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "back-rocky"
+layer_4/z_index = -1
+layer_4/tile_data = PackedInt32Array()
+layer_5/name = "background-ground-back"
+layer_5/z_index = -3
+layer_5/tile_data = PackedInt32Array()
+layer_6/name = "background-sky-back"
+layer_6/z_index = -6
+layer_6/tile_data = PackedInt32Array()
+layer_7/name = "background-ground-front"
+layer_7/z_index = -4
+layer_7/tile_data = PackedInt32Array()
+layer_8/name = "background-sky-front"
+layer_8/z_index = -5
+layer_8/tile_data = PackedInt32Array()
