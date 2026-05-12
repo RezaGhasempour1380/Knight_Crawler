@@ -24,6 +24,8 @@ var face_right = true
 var jump_buffered = false  
 var is_rolling = false
 var is_turning = false
+var pending_flip = false
+var requested_direction = 0
 
 var standing_cshape = preload("res://resources/player_standing_collision_shape.tres")
 var crouching_cshape = preload("res://resources/player_crouching_collision_shape.tres")
@@ -127,6 +129,10 @@ func update_animations(horizontal_direction):
 	if is_turning:
 		if ap.current_animation != "turn_around":
 			is_turning = false
+			if pending_flip:
+				sprite.flip_h = (requested_direction == -1)
+				face_right = (requested_direction == 1)
+				pending_flip = false
 		return
 	
 	if is_on_floor():
@@ -147,7 +153,7 @@ func update_animations(horizontal_direction):
 			ap.play("fall")
 	
 func switch_direction(horizontal_direction):
-	sprite.flip_h = is_turning != (horizontal_direction == -1)
+	
 	sprite.position.x = horizontal_direction * 5
 	check_direction(horizontal_direction)
 	if (is_crouching == false and face_right==true):
@@ -162,15 +168,31 @@ func switch_direction(horizontal_direction):
 	
 func check_direction(horizontal_direction):
 	var prev_face = face_right
-	if(horizontal_direction == 1):
-		face_right = true
-	elif(horizontal_direction == -1):
-		face_right = false
 	
-	if is_on_floor() and prev_face != face_right and !is_crouching:
-		is_turning = true
-		switch_direction(horizontal_direction)
-		ap.play("turn_around")
+	if horizontal_direction == 1 and !face_right:
+		requested_direction = horizontal_direction
+		if is_on_floor() and !is_crouching:
+			is_turning = true
+			pending_flip = true
+			ap.play("turn_around")
+			return  # Wait for animation to finish
+		else:
+			sprite.flip_h = false
+	elif horizontal_direction == -1 and face_right:
+		requested_direction = horizontal_direction
+		if is_on_floor() and !is_crouching:
+			is_turning = true
+			pending_flip = true
+			ap.play("turn_around")
+			return
+		else:
+			sprite.flip_h = true
+	
+	if horizontal_direction == 1:
+		face_right = true
+	elif horizontal_direction == -1:
+		face_right = false
+
 	
 func crouch():
 	if is_crouching:
@@ -229,9 +251,3 @@ func attack():
 
 func _on_attack_hitbox_area_entered(area):
 	pass # Replace with function body.
-
-
-
-
-
-
